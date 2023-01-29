@@ -19,6 +19,7 @@ public class CustomerRequest {
     private String document;
 
     @Email(message = "Email should be valid")
+    @NotBlank(message = "email cannot be empty")
     private String email;
 
     @NotBlank(message = "phone cannot be empty")

@@ -2,7 +2,7 @@ package com.spring.mscustomer.domain.usecase;
 
 import com.spring.mscustomer.domain.dataprovider.MsCustomerDataBaseDataProvider;
 import com.spring.mscustomer.domain.model.Customer;
-import com.spring.mscustomer.userinterface.exception.CustomerAlreadyExistsException;
+import com.spring.mscustomer.domain.exception.CustomerAlreadyExistsException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +16,7 @@ public class CreateCustomerUseCase {
 
         msCustomerDataBaseDataProvider
                 .findByDocument(customer.getDocument())
-                .ifPresent(customerFromDB -> new CustomerAlreadyExistsException("Customer already exists"));
+                .ifPresent(customerFromDB ->  { throw new CustomerAlreadyExistsException("Customer already exists");});
 
         msCustomerDataBaseDataProvider.save(customer);
     }

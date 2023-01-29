@@ -1,7 +1,7 @@
 package com.spring.mscustomer.domain.usecase;
 
 import com.spring.mscustomer.domain.dataprovider.MsCustomerDataBaseDataProvider;
-import com.spring.mscustomer.userinterface.exception.CustomerNotFoundException;
+import com.spring.mscustomer.domain.exception.CustomerNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

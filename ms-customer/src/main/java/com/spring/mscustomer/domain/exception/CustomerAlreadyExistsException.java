@@ -1,4 +1,4 @@
-package com.spring.mscustomer.userinterface.exception;
+package com.spring.mscustomer.domain.exception;
 
 public class CustomerAlreadyExistsException extends RuntimeException{
 
