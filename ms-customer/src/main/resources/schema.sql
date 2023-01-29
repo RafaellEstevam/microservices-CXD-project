@@ -1,0 +1,7 @@
+CREATE TABLE customer(
+    id BIGINT AUTO_INCREMENT NOT NULL,
+    name VARCHAR(50) NOT NULL,
+    document VARCHAR(20) NOT NULL,
+    email VARCHAR(50) NOT NULL,
+    phone VARCHAR(20) NOT NULL,
+    PRIMARY KEY(id));

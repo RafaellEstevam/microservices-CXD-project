@@ -49,7 +49,7 @@ public class CustomerWebRestController {
         return ResponseEntity.ok(customerResponseTranslator.execute(customer));
     }
 
-    @GetMapping
+    @GetMapping("/all")
     public ResponseEntity<List<CustomerResponse>>retrieveAll(){
         List<Customer> customers = retrieveCustomerUseCase.retrieveAll();
         return ResponseEntity.ok(customerResponseTranslator.execute(customers));
@@ -65,9 +65,6 @@ public class CustomerWebRestController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Void>delete(@PathVariable Long id){
         deleteCustomerUseCase.execute(id);
-
         return ResponseEntity.noContent().build();
     }
-
-
 }

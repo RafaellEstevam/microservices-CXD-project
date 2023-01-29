@@ -3,6 +3,7 @@ package com.spring.mscustomer.domain.model;
 import lombok.*;
 
 @AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
 @EqualsAndHashCode
@@ -14,5 +15,4 @@ public class Customer {
     private String document;
     private String email;
     private String phone;
-
 }

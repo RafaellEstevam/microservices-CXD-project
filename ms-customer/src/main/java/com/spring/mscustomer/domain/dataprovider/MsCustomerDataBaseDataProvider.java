@@ -10,7 +10,7 @@ public interface MsCustomerDataBaseDataProvider {
     Optional<Customer> findById(Long id);
     Optional<Customer> findByDocument(String document);
     List<Customer>findAll();
-    void create(Customer customer);
+    void save(Customer customer);
     void update(Customer customer);
     void delete(Long id);
 }

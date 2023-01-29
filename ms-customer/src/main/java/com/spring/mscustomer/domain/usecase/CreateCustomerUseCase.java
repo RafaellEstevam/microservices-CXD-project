@@ -18,6 +18,6 @@ public class CreateCustomerUseCase {
                 .findByDocument(customer.getDocument())
                 .ifPresent(customerFromDB -> new CustomerAlreadyExistsException("Customer already exists"));
 
-        msCustomerDataBaseDataProvider.create(customer);
+        msCustomerDataBaseDataProvider.save(customer);
     }
 }
