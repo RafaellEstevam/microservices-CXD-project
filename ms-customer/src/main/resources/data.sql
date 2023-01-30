@@ -1,2 +1,2 @@
-INSERT INTO customer(name, document, email, phone) VALUES ('Carlos Eduardo Almada', '26367934022', 'carlos_almada@somma.net.br', '(91)98257-5284')
-INSERT INTO customer(name, document, email, phone) VALUES ('Rosa Rosângela Marli', '49778309388', 'rosa_rmarli@aircominternational.com', '(84)99732-3091')
+INSERT INTO tb_customer(name, document, email, phone) VALUES ('Carlos Eduardo Almada', '26367934022', 'carlos_almada@somma.net.br', '(91)98257-5284')
+INSERT INTO tb_customer(name, document, email, phone) VALUES ('Rosa Rosângela Marli', '49778309388', 'rosa_rmarli@aircominternational.com', '(84)99732-3091')

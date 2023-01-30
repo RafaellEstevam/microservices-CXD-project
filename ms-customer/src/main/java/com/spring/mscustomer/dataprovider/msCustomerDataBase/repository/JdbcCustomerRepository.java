@@ -2,8 +2,7 @@ package com.spring.mscustomer.dataprovider.msCustomerDataBase.repository;
 
 import com.spring.mscustomer.domain.model.Customer;
 import lombok.RequiredArgsConstructor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -14,20 +13,34 @@ import java.util.Optional;
 
 @Repository
 @RequiredArgsConstructor
+@Slf4j
 public class JdbcCustomerRepository implements CustomerRepository{
 
-    private static final Logger LOG = LoggerFactory.getLogger(JdbcCustomerRepository.class);
     private final JdbcTemplate jdbcTemplate;
 
     @Override
     public Optional<Customer> findById(Long id) {
         Customer customer = null;
         try {
-            customer =  jdbcTemplate.queryForObject("SELECT * FROM customer WHERE id=?",
+            customer =  jdbcTemplate.queryForObject("SELECT * FROM tb_customer WHERE id=?",
                     BeanPropertyRowMapper.newInstance(Customer.class), id);
 
         } catch (IncorrectResultSizeDataAccessException e) {
-            LOG.info("Customer not found");
+            log.info("c=JdbcCustomerRepository m= findById id={}, customer not found", id);
+        }
+
+        return Optional.ofNullable(customer);
+    }
+
+    @Override
+    public Optional<Customer> findByEmail(String email) {
+        Customer customer = null;
+        try {
+            customer =  jdbcTemplate.queryForObject("SELECT * FROM tb_customer WHERE email=?",
+                    BeanPropertyRowMapper.newInstance(Customer.class), email);
+
+        } catch (IncorrectResultSizeDataAccessException e) {
+            log.info("c=JdbcCustomerRepository m= findByEmail email={}, customer not found", email);
         }
 
         return Optional.ofNullable(customer);
@@ -37,11 +50,11 @@ public class JdbcCustomerRepository implements CustomerRepository{
     public Optional<Customer> findByDocument(String document) {
         Customer customer = null;
         try {
-            customer =  jdbcTemplate.queryForObject("SELECT * FROM customer WHERE document=?",
+            customer =  jdbcTemplate.queryForObject("SELECT * FROM tb_customer WHERE document=?",
                     BeanPropertyRowMapper.newInstance(Customer.class), document);
 
         } catch (IncorrectResultSizeDataAccessException e) {
-            LOG.info("Customer not found");
+            log.info("c=JdbcCustomerRepository m= findByDocument document={}, customer not found", document);
         }
 
         return Optional.ofNullable(customer);
@@ -49,17 +62,17 @@ public class JdbcCustomerRepository implements CustomerRepository{
 
     @Override
     public List<Customer> findAll() {
-        String sql = "SELECT * FROM customer";
+        String sql = "SELECT * FROM tb_customer";
         return jdbcTemplate.query(sql, BeanPropertyRowMapper.newInstance(Customer.class));
     }
 
     @Override
     public int save(Customer customer) {
-        int insert = jdbcTemplate.update("INSERT INTO customer (name, document, email, phone) VALUES(?,?,?,?)",
+        int insert = jdbcTemplate.update("INSERT INTO tb_customer (name, document, email, phone) VALUES(?,?,?,?)",
                 new Object[]{customer.getName(), customer.getDocument(), customer.getEmail(), customer.getPhone()});
 
         if (insert == 1){
-            LOG.info("New customer created");
+            log.info("c=JdbcCustomerRepository m= save, new customer saved");
         }
 
         return insert;
@@ -67,11 +80,11 @@ public class JdbcCustomerRepository implements CustomerRepository{
 
     @Override
     public int update(Customer customer) {
-        int update =  jdbcTemplate.update("UPDATE customer SET name=?, document=?, email=?, phone=? WHERE id=?",
+        int update =  jdbcTemplate.update("UPDATE tb_customer SET name=?, document=?, email=?, phone=? WHERE id=?",
                 new Object[] {customer.getName(), customer.getDocument(), customer.getEmail(), customer.getPhone(), customer.getId()});
 
         if (update == 1){
-            LOG.info("Customer with id "+customer.getId()+" was updated");
+            log.info("c=JdbcCustomerRepository m= update, customer with id={} was updated", customer.getId());
         }
 
         return update;
@@ -79,6 +92,6 @@ public class JdbcCustomerRepository implements CustomerRepository{
 
     @Override
     public int delete(Long id) {
-        return jdbcTemplate.update("DELETE FROM customer WHERE id=?", id);
+        return jdbcTemplate.update("DELETE FROM tb_customer WHERE id=?", id);
     }
 }

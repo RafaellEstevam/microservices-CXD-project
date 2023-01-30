@@ -1,10 +1,10 @@
-package com.spring.hrapigatewayzuul;
+package com.spring.msoauth;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class HrApiGatewayZuulApplicationTests {
+class MsOauthApplicationTests {
 
 	@Test
 	void contextLoads() {

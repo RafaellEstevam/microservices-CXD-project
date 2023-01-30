@@ -44,8 +44,8 @@ public class CustomerWebRestController {
     }
 
     @GetMapping
-    public ResponseEntity<CustomerResponse>retrieveByDocument(@RequestParam String document){
-        Customer customer = retrieveCustomerUseCase.retrieveByDocument(document);
+    public ResponseEntity<CustomerResponse>retrieveByEmail(@RequestParam String email){
+        Customer customer = retrieveCustomerUseCase.retrieveByEmail(email);
         return ResponseEntity.ok(customerResponseTranslator.execute(customer));
     }
 

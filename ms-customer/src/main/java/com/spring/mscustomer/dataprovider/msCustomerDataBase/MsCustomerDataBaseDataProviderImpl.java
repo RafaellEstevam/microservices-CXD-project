@@ -26,6 +26,11 @@ public class MsCustomerDataBaseDataProviderImpl implements MsCustomerDataBaseDat
     }
 
     @Override
+    public Optional<Customer> findByEmail(String email) {
+        return jdbcCustomerRepository.findByEmail(email);
+    }
+
+    @Override
     public List<Customer> findAll() {
         return jdbcCustomerRepository.findAll();
     }

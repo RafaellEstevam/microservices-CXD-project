@@ -1,4 +1,4 @@
-CREATE TABLE customer(
+CREATE TABLE tb_customer(
     id BIGINT AUTO_INCREMENT NOT NULL,
     name VARCHAR(50) NOT NULL,
     document VARCHAR(20) NOT NULL,

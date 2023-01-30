@@ -1,5 +1,6 @@
 package com.spring.mscustomer.domain.exception;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -36,7 +37,7 @@ public class ControllerAdviceExceptionHandler {
     public ResponseEntity<ErrorResponse>handleCustomerNotFoundException(CustomerNotFoundException exception){
         ErrorResponse errorResponse = getErrorResponse(exception);
 
-        return ResponseEntity.badRequest().body(errorResponse);
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
     }
 
     private static ErrorResponse getErrorResponse(RuntimeException exception) {

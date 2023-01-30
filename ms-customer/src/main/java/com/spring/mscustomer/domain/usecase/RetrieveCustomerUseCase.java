@@ -15,13 +15,14 @@ public class RetrieveCustomerUseCase {
 
     private final MsCustomerDataBaseDataProvider msCustomerDataBaseDataProvider;
     private final DocumentFormatService documentFormatService;
+
     public Customer retrieveById(Long id){
         return msCustomerDataBaseDataProvider.findById(id)
                 .orElseThrow(() -> new CustomerNotFoundException("customer not found"));
     }
 
-    public Customer retrieveByDocument(String document){
-        return msCustomerDataBaseDataProvider.findByDocument(documentFormatService.execute(document))
+    public Customer retrieveByEmail(String email){
+        return msCustomerDataBaseDataProvider.findByEmail(email)
                 .orElseThrow(() -> new CustomerNotFoundException("customer not found"));
     }
 
