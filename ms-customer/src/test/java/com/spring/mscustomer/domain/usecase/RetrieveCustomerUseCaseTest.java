@@ -14,6 +14,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -48,21 +49,56 @@ class RetrieveCustomerUseCaseTest {
 
     @Test
     void WhenCustomerByIdIsPresentThenReturnTheCustomer() {
-        Mockito.when(msCustomerDataBaseDataProvider.findById(ArgumentMatchers.eq(1L)))
+        Mockito.when(msCustomerDataBaseDataProvider.findById(ArgumentMatchers.anyLong()))
                 .thenReturn(optionalCustomer);
 
-        Customer customer = retrieveCustomerUseCase.retrieveById(1L);
-        Assertions.assertEquals(NAME,customer.getName());
-
+        Customer customer = retrieveCustomerUseCase.retrieveById(ID);
+        executeAssertVerifications(customer);
     }
 
     @Test
-    void WhenCustomerByIdIsNotPresentThenShouldThrowAException() {
-        Mockito.when(msCustomerDataBaseDataProvider.findById(ArgumentMatchers.eq(1L)))
+    void WhenCustomerByIdIsNotPresentThenShouldThrowAnException() {
+        Mockito.when(msCustomerDataBaseDataProvider.findById(ArgumentMatchers.anyLong()))
                 .thenReturn(EMPTY_OPTIONAL);
 
-       Assertions.assertThrows(CustomerNotFoundException.class, () -> retrieveCustomerUseCase.retrieveById(1L));
+       assertThrows(CustomerNotFoundException.class, () -> retrieveCustomerUseCase.retrieveById(ID));
+    }
 
+
+    @Test
+    void WhenCustomerByEmailIsPresentThenReturnTheCustomer(){
+        Mockito.when(msCustomerDataBaseDataProvider.findByEmail(ArgumentMatchers.anyString())).thenReturn(optionalCustomer);
+        Customer customer = retrieveCustomerUseCase.retrieveByEmail(EMAIL);
+
+        executeAssertVerifications(customer);
+    }
+
+
+    @Test
+    void WhenCustomerByEmailIsPresentThenShouldThrowAnException(){
+        Mockito.when(msCustomerDataBaseDataProvider.findByEmail(ArgumentMatchers.anyString())).thenReturn(EMPTY_OPTIONAL);
+
+        assertThrows(CustomerNotFoundException.class, () -> retrieveCustomerUseCase.retrieveByEmail(EMAIL));
+    }
+
+    @Test
+    void WhenRetrieveAllIsCalledThenShouldRetrieveAllCustomers(){
+        Customer c1 = Mockito.mock(Customer.class);
+        Customer c2 = Mockito.mock(Customer.class);
+        List<Customer>customers = List.of(c1,c2);
+
+        Mockito.when(msCustomerDataBaseDataProvider.findAll()).thenReturn(customers);
+        List<Customer> customerList = retrieveCustomerUseCase.retrieveAll();
+
+        assertEquals(customers.size(), customerList.size());
+    }
+
+
+    private static void executeAssertVerifications(Customer customer) {
+        assertEquals(NAME, customer.getName());
+        assertEquals(DOCUMENT, customer.getDocument());
+        assertEquals(EMAIL, customer.getEmail());
+        assertEquals(PHONE, customer.getPhone());
     }
 
 

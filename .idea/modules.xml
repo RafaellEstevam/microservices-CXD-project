@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/ms-api-gateway-zuul/ms-api-gateway-zuul.iml" filepath="$PROJECT_DIR$/ms-api-gateway-zuul/ms-api-gateway-zuul.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ms-customer/ms-customer.iml" filepath="$PROJECT_DIR$/ms-customer/ms-customer.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ms-oauth/ms-oauth.iml" filepath="$PROJECT_DIR$/ms-oauth/ms-oauth.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/ms-project.iml" filepath="$PROJECT_DIR$/.idea/ms-project.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ms-user/ms-user.iml" filepath="$PROJECT_DIR$/ms-user/ms-user.iml" />
+    </modules>
+  </component>
+</project>
