@@ -6,8 +6,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
+import java.sql.PreparedStatement;
+import java.sql.Statement;
 import java.util.List;
 import java.util.Optional;
 
@@ -68,14 +72,25 @@ public class JdbcCustomerRepository implements CustomerRepository{
 
     @Override
     public int save(Customer customer) {
-        int insert = jdbcTemplate.update("INSERT INTO tb_customer (name, document, email, phone) VALUES(?,?,?,?)",
-                new Object[]{customer.getName(), customer.getDocument(), customer.getEmail(), customer.getPhone()});
 
-        if (insert == 1){
-            log.info("c=JdbcCustomerRepository m= save, new customer saved");
-        }
+        GeneratedKeyHolder generatedKeyHolder = new GeneratedKeyHolder();
+        String sql = "INSERT INTO tb_customer (name, document, email, phone) VALUES(?,?,?,?)";
 
-        return insert;
+        int rowsAffected = jdbcTemplate.update(conn -> {
+            PreparedStatement preparedStatement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+
+            preparedStatement.setString(1, customer.getName());
+            preparedStatement.setString(2, customer.getDocument());
+            preparedStatement.setString(3, customer.getEmail());
+            preparedStatement.setString(4, customer.getPhone());
+
+            return preparedStatement;
+        }, generatedKeyHolder);
+
+        int generatedId = generatedKeyHolder.getKey().intValue();
+
+        log.info("c=JdbcCustomerRepository, m=save, rowsAffected = {}, id={}", rowsAffected, generatedId);
+        return generatedId;
     }
 
     @Override

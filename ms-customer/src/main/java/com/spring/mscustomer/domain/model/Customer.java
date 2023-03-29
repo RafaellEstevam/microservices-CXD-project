@@ -6,6 +6,7 @@ import lombok.*;
 @NoArgsConstructor
 @Getter
 @Setter
+@Data
 @EqualsAndHashCode
 @Builder
 public class Customer {

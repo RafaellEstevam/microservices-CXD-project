@@ -11,7 +11,7 @@ public interface MsCustomerDataBaseDataProvider {
     Optional<Customer> findByDocument(String document);
     Optional<Customer> findByEmail(String email);
     List<Customer>findAll();
-    void save(Customer customer);
+    int save(Customer customer);
     void update(Customer customer);
     void delete(Long id);
 }

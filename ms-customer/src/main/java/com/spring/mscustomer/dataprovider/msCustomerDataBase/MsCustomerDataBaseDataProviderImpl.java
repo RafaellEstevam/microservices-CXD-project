@@ -36,8 +36,8 @@ public class MsCustomerDataBaseDataProviderImpl implements MsCustomerDataBaseDat
     }
 
     @Override
-    public void save(Customer customer) {
-        jdbcCustomerRepository.save(customer);
+    public int save(Customer customer) {
+        return jdbcCustomerRepository.save(customer);
     }
 
     @Override
